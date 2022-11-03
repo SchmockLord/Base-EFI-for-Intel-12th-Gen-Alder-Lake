@@ -114,7 +114,7 @@ SSDT-EC-USBX.aml|Fixes both the embedded controller and USB power.
 ## Optional ACPI
 .aml-file|Description
 :----|:----
-SSDT-PLUG-DRTNIA.aml|Enables native CPU Power Management. But as 11th Gen is not supported, this SSDT has no effect on my 11900k or at least I can't tell I feel a difference. X86Plugin is not getting enabled.
+SSDT-PLUG-ALT.aml|Enables native CPU Power Management for Intel Alder Lake processors.
 SSDT-USBW.aml|If you have the wake issue that it requires two keypresses to wake the display after sleep.
 SSDT-RHUB.aml|If you experience issues with USB when booting macOS, try this AML to force a USB reset. But USB issues probably result from a faulty USB-port mapping.
 SSDT-DTGP.aml|Thunderbolt 4 Support.
@@ -142,7 +142,7 @@ SMCProcessor.kext|VirtualSMC-plugin for CPU Sensor Data e.g. CPU Core Temp
 SMCSuperIO.kext|VirtualSMC-plugin for Mainboard Sensor Data e.g. case fan speed
 
 # CPU Emulation
-As the 11th Gen Intel is not supported officially, we have to emulate the 10th Gen Intel in the Kernel-Emulate section of the config.plist.
+As the 12th Gen Intel is not supported officially, we have to emulate the 10th Gen Intel in the Kernel-Emulate section of the config.plist.
 
 Key|Type|Value
 :----|:----|:----
@@ -188,31 +188,11 @@ I have used and recommend the BCM94360NG as a replacement.
 
 # iGPU
 
-iGPUs in the 11th Gen Intel CPUs or newer are not supported anymore.
+iGPUs in the 12th Gen Intel CPUs or newer are not supported anymore.
 
 That is why I use dGPU SMBIOS like iMacPro1,1 or MacPro7,1.
 
-But as you can install 10th Gen Intel CPUs on Rocket Lake boards, this is how you can enable the iGPU.
-
-## iGPU with display output
-
-In the config.plist set your SMBIOS to either iMac20,1 (for anything less than 10900k) or iMac20,2 (for 10900k) with 'SystemProductName'='iMac20,2'.
-
-Remember, when choosing a different SMBIOS, you need to adjust your USBMapxx.kext accordingly. Open the info.plist and replace iMacPro1,1 with your current SMBIOS e.g. iMac20,2.
-
-<img src="Docs/iGPU-for-display.png" width="500">
-
-These device properties only activate the iGPU for display. But you might add much more properties to have video output from HDMI/DP.
-
-See my iGPU Device Properties from my 10900k of my Gigybte Z490 Vision D for reference.
-
-<img src="Docs/iGPU-Z490-VisionD.png" width="500">
-
-More information here: [Framebuffer Patching Guide](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md)
-
-## iGPU for computing only
-
-<img src="/Docs/iGPU-for-computing.png" width="500">
+If your CPU has one, you should disable it in BIOS.
 
 # USB
 
