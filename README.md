@@ -1,5 +1,5 @@
 # Base EFI for Intel 12th Gen Alder Lake
- This is a base EFI which should be good to go for most 11th Gen Rocket lake boards.
+ This is a base EFI which should be good to go for most 12th Gen Alder Lake boards.
  
 Bootloader
 :----
